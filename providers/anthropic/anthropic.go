@@ -320,6 +320,12 @@ func (a *provider) Name() string {
 	return Name
 }
 
+var ErrEmbeddingNotSupported = errors.New("embeddings are not supported by the Anthropic provider")
+
+func (a *provider) Embed(ctx context.Context, modelID string, opts ...fantasy.EmbeddingOption) (*fantasy.EmbeddingResponse, error) {
+	return nil, ErrEmbeddingNotSupported
+}
+
 // GetCacheControl extracts cache control settings from provider options.
 func GetCacheControl(providerOptions fantasy.ProviderOptions) *CacheControl {
 	if anthropicOptions, ok := providerOptions[Name]; ok {

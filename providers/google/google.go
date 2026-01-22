@@ -143,6 +143,12 @@ func (*provider) Name() string {
 	return Name
 }
 
+var ErrEmbeddingNotSupported = errors.New("embeddings are not supported by the Google provider")
+
+func (a *provider) Embed(ctx context.Context, modelID string, opts ...fantasy.EmbeddingOption) (*fantasy.EmbeddingResponse, error) {
+	return nil, ErrEmbeddingNotSupported
+}
+
 type languageModel struct {
 	provider        string
 	modelID         string
