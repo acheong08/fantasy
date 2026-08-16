@@ -5,8 +5,8 @@ import (
 	"slices"
 
 	"charm.land/fantasy"
-	"github.com/openai/openai-go/v2"
-	"github.com/openai/openai-go/v2/option"
+	"github.com/openai/openai-go/v3"
+	"github.com/openai/openai-go/v3/option"
 )
 
 func (o *provider) Embed(ctx context.Context, modelID string, opts ...fantasy.EmbeddingOption) (*fantasy.EmbeddingResponse, error) {
@@ -45,7 +45,7 @@ func (o *provider) Embed(ctx context.Context, modelID string, opts ...fantasy.Em
 	client := openai.NewClient(openaiClientOptions...)
 
 	params := openai.EmbeddingNewParams{
-		Model: openai.EmbeddingModel(modelID),
+		Model: call.Model,
 		Input: openai.EmbeddingNewParamsInputUnion{
 			OfArrayOfStrings: call.Input,
 		},
@@ -78,7 +78,7 @@ func (o *provider) Embed(ctx context.Context, modelID string, opts ...fantasy.Em
 
 	return &fantasy.EmbeddingResponse{
 		Embeddings: embeddings,
-		Model:      string(response.Model),
+		Model:      response.Model,
 		Usage: fantasy.Usage{
 			InputTokens: response.Usage.PromptTokens,
 			TotalTokens: response.Usage.TotalTokens,

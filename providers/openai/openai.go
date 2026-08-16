@@ -23,6 +23,14 @@ type provider struct {
 	options options
 }
 
+// Provider is an OpenAI provider with language-model and embedding support.
+type Provider interface {
+	fantasy.Provider
+	fantasy.Embedder
+}
+
+var _ Provider = (*provider)(nil)
+
 type options struct {
 	baseURL              string
 	apiKey               string
@@ -44,6 +52,12 @@ type Option = func(*options)
 
 // New creates a new OpenAI provider with the given options.
 func New(opts ...Option) (fantasy.Provider, error) {
+	return NewProvider(opts...)
+}
+
+// NewProvider creates an OpenAI provider with direct access to embedding
+// generation in addition to the standard language-model provider methods.
+func NewProvider(opts ...Option) (Provider, error) {
 	providerOptions := options{
 		headers:              map[string]string{},
 		languageModelOptions: make([]LanguageModelOption, 0),

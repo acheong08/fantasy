@@ -12,9 +12,9 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-type embeddingProviderBuilderFunc func(t *testing.T, r *vcr.Recorder) (fantasy.Provider, error)
+type embeddingProviderBuilderFunc func(t *testing.T, r *vcr.Recorder) (fantasy.Embedder, error)
 
-func builderOpenAIEmbeddings(t *testing.T, r *vcr.Recorder) (fantasy.Provider, error) {
+func builderOpenAIEmbeddings(t *testing.T, r *vcr.Recorder) (fantasy.Embedder, error) {
 	baseURL := "https://api.openai.com/v1"
 	if os.Getenv("FANTASY_BASE_URL") != "" {
 		baseURL = os.Getenv("FANTASY_BASE_URL")
@@ -23,7 +23,7 @@ func builderOpenAIEmbeddings(t *testing.T, r *vcr.Recorder) (fantasy.Provider, e
 	if os.Getenv("FANTASY_API_KEY") != "" {
 		apiKey = os.Getenv("FANTASY_API_KEY")
 	}
-	provider, err := openai.New(
+	provider, err := openai.NewProvider(
 		openai.WithBaseURL(baseURL),
 		openai.WithAPIKey(apiKey),
 		openai.WithHTTPClient(&http.Client{Transport: r}),

@@ -8,5 +8,4 @@ import (
 type Provider interface {
 	Name() string
 	LanguageModel(ctx context.Context, modelID string) (LanguageModel, error)
-	Embed(ctx context.Context, modelID string, opts ...EmbeddingOption) (*EmbeddingResponse, error)
 }

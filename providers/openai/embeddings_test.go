@@ -45,7 +45,7 @@ func TestEmbed_SingleInput(t *testing.T) {
 	}))
 	defer server.Close()
 
-	provider, err := New(
+	provider, err := NewProvider(
 		WithBaseURL(server.URL),
 		WithAPIKey("test-key"),
 	)
@@ -97,7 +97,7 @@ func TestEmbed_BatchInput(t *testing.T) {
 	}))
 	defer server.Close()
 
-	provider, err := New(
+	provider, err := NewProvider(
 		WithBaseURL(server.URL),
 		WithAPIKey("test-key"),
 	)
@@ -150,7 +150,7 @@ func TestEmbed_WithDimensions(t *testing.T) {
 	}))
 	defer server.Close()
 
-	provider, err := New(
+	provider, err := NewProvider(
 		WithBaseURL(server.URL),
 		WithAPIKey("test-key"),
 	)
@@ -167,7 +167,7 @@ func TestEmbed_WithDimensions(t *testing.T) {
 func TestEmbed_EmptyInput(t *testing.T) {
 	t.Parallel()
 
-	provider, err := New(
+	provider, err := NewProvider(
 		WithAPIKey("test-key"),
 	)
 	require.NoError(t, err)
@@ -200,7 +200,7 @@ func TestEmbed_OutputOrder(t *testing.T) {
 	}))
 	defer server.Close()
 
-	provider, err := New(
+	provider, err := NewProvider(
 		WithBaseURL(server.URL),
 		WithAPIKey("test-key"),
 	)
